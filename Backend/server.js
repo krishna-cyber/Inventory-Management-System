@@ -7,12 +7,20 @@ const dotenv = require("dotenv").config();
 
 //creating server
 const app = express(); //creating express app
+
+//Middleware
 app.use(cors()); //to allow cross origin resource sharing
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); //parse application/x-www-form-urlencoded
+app.use(bodyParser.json()); // for parsing application/json data come from frontend to backend
+app.use(express.json()); //parse application/json
+app.use(express.urlencoded({ extended: false })); //parse application/x-www-form-urlencoded
 
 //providing port for server
 const PORT = process.env.PORT || 5000;
+
+//Routes
+app.get("/", (req, res) => {
+  res.send("Home Page");
+});
 
 //connect to database and start server
 mongoose
