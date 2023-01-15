@@ -22,6 +22,7 @@ const PORT = process.env.PORT || 5000;
 
 //Routes middleware
 app.use("/api/user", userRoute);
+
 //connect to database and start server
 mongoose
   .connect(process.env.DB_CONNECT, {

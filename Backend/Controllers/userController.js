@@ -1,3 +1,4 @@
+//controllers
 const registeruser = async (req, res, next) => {
   res.send("User registration route");
 };
