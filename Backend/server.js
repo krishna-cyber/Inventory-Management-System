@@ -5,6 +5,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
+//importing routes
+const userRoute = require("./Routes/userRoute");
+
 //creating server
 const app = express(); //creating express app
 
@@ -17,11 +20,8 @@ app.use(express.urlencoded({ extended: false })); //parse application/x-www-form
 //providing port for server
 const PORT = process.env.PORT || 5000;
 
-//Routes
-app.get("/", (req, res) => {
-  res.send("Home Page");
-});
-
+//Routes middleware
+app.use("/api/user", userRoute);
 //connect to database and start server
 mongoose
   .connect(process.env.DB_CONNECT, {
