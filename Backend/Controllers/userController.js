@@ -4,7 +4,8 @@ const asyncHandler = require("express-async-handler");
 const User = require("../Models/userSchema");
 //controllers
 const registeruser = asyncHandler(async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phone } = req.body;
+  console.log(req.body);
 
   //validation
   if (!name || !email || !password) {
@@ -28,17 +29,18 @@ const registeruser = asyncHandler(async (req, res, next) => {
     name,
     email,
     password,
+    phone,
   });
   //send response
   if (newUser) {
+    const { _id, name, email, password, photo, phone, bio } = newUser;
     res.status(201).json({
-      _id: newUser._id,
-      name: newUser.name,
-      email: newUser.email,
-      password: newUser.password,
-      photo: newUser.photo,
-      phone: newUser.phone,
-      bio: newUser.bio,
+      _id,
+      name,
+      email,
+      photo,
+      phone,
+      bio,
     });
   } else {
     res.status(400);
