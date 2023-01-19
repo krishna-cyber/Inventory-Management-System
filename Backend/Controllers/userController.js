@@ -1,5 +1,7 @@
 //importing async handler
 const asyncHandler = require("express-async-handler");
+const bcrypt = require("bcrypt"); // import the Library.
+const rounds = process.env.ROUNDS || 10; // set the number of rounds.
 //importing user model
 const User = require("../Models/userSchema");
 //controllers
@@ -18,6 +20,9 @@ const registeruser = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw new Error("Password must be at least 6 characters long");
   }
+  //encrypt password before saving password to database
+  const salt = await bcrypt.genSalt(rounds);
+  const hashedPassword = await bcrypt.hash(password, salt);
   //check if the user already exists
   const user = await User.findOne({ email });
   if (user) {
@@ -28,7 +33,7 @@ const registeruser = asyncHandler(async (req, res, next) => {
   const newUser = await User.create({
     name,
     email,
-    password,
+    password: hashedPassword,
     phone,
   });
   //send response
