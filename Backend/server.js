@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser"); //importing cookie parser
 require("dotenv").config();
 const errorHandlingMW = require("./middlewares/errorHandlingMW");
 
@@ -17,6 +18,7 @@ app.use(cors()); //to allow cross origin resource sharing
 app.use(bodyParser.json()); // for parsing application/json data come from frontend to backend
 app.use(express.json()); //parse application/json
 app.use(express.urlencoded({ extended: false })); //parse application/x-www-form-urlencoded
+app.use(cookieParser()); //using cookie parser
 app.use(errorHandlingMW); //error handling middleware
 //providing port for server
 const PORT = process.env.PORT || 5000;

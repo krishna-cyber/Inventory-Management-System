@@ -1,9 +1,16 @@
 //importing async handler
 const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt"); // import the Library.
-const rounds = process.env.ROUNDS || 10; // set the number of rounds.
+const jwt = require("jsonwebtoken"); // import the Library.
+
 //importing user model
 const User = require("../Models/userSchema");
+
+//generating token function
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.SECRET_KEY, {
+    expiresIn: "1d",
+  });
+};
 //controllers
 const registeruser = asyncHandler(async (req, res, next) => {
   const { name, email, password, phone } = req.body;
@@ -20,9 +27,7 @@ const registeruser = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw new Error("Password must be at least 6 characters long");
   }
-  //encrypt password before saving password to database
-  const salt = await bcrypt.genSalt(rounds);
-  const hashedPassword = await bcrypt.hash(password, salt);
+
   //check if the user already exists
   const user = await User.findOne({ email });
   if (user) {
@@ -33,9 +38,20 @@ const registeruser = asyncHandler(async (req, res, next) => {
   const newUser = await User.create({
     name,
     email,
-    password: hashedPassword,
+    password,
     phone,
   });
+  //Generating token
+  const token = generateToken(newUser._id); //Token will expire in 1 day and generated for the newUser._id
+  //set cookie
+  res.cookie("token", token, {
+    path: "/",
+    httpOnly: true,
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000), //cookie will expire in 1 day
+    sameSite: "none", //for secure cookie
+    secure: true, //for secure cookie
+  });
+
   //send response
   if (newUser) {
     const { _id, name, email, password, photo, phone, bio } = newUser;
@@ -46,6 +62,7 @@ const registeruser = asyncHandler(async (req, res, next) => {
       photo,
       phone,
       bio,
+      token,
     });
   } else {
     res.status(400);
