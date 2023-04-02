@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
@@ -26,6 +27,8 @@ const userSchema = new mongoose.Schema(
     photo: {
       type: String,
       required: [true, "Please provide a photo"],
+      default:
+        "https://th.bing.com/th/id/R.ece30115246bf066a7c5028a97006bb3?rik=TMO1yB9PB9zt%2bQ&pid=ImgRaw&r=0",
     },
     phone: {
       type: String,
@@ -41,6 +44,30 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+//saving hashed password before saving to database
+userSchema.pre("save", function (next) {
+  const user = this;
+
+  if (this.isModified("password") || this.isNew) {
+    bcrypt.genSalt(10, function (saltError, salt) {
+      if (saltError) {
+        return next(saltError);
+      } else {
+        bcrypt.hash(user.password, salt, function (hashError, hash) {
+          if (hashError) {
+            return next(hashError);
+          }
+
+          user.password = hash;
+          next();
+        });
+      }
+    });
+  } else {
+    return next();
+  }
+});
 
 const User = mongoose.model("user", userSchema);
 
