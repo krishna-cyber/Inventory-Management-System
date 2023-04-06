@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaProductHunt } from "react-icons/fa";
 import "./homepage.scss";
-import image from "../../assets/hero.png";
+import image from "../../assets/hero.webp";
 
 const homepage = () => {
   return (
