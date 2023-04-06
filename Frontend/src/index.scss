@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+body {
+  background-color: #4d48d8;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
