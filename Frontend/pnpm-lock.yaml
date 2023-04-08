@@ -9,6 +9,7 @@ specifiers:
   postcss: ^8.4.21
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-hook-form: ^7.43.9
   react-icons: ^4.8.0
   react-redux: ^8.0.5
   react-router-dom: ^6.10.0
@@ -20,6 +21,7 @@ dependencies:
   '@reduxjs/toolkit': 1.9.3_k4ae6lp43ej6mezo3ztvx6pykq
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.43.9_react@18.2.0
   react-icons: 4.8.0_react@18.2.0
   react-redux: 8.0.5_ddal5w4bzhvnvvplv3twufcima
   react-router-dom: 6.10.0_biqbaboplfbrettd7655fr4n2y
@@ -1166,6 +1168,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-hook-form/7.43.9_react@18.2.0:
+    resolution: {integrity: sha512-AUDN3Pz2NSeoxQ7Hs6OhQhDr6gtF9YRuutGDwPQqhSUAHJSgGl2VeY3qN19MG0SucpjgDiuMJ4iC5T5uB+eaNQ==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-icons/4.8.0_react@18.2.0:
