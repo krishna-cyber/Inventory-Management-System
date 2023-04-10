@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import "./Login.scss";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -54,6 +55,27 @@ const Login = () => {
               className=' w-1/2 text-white text-3xl rounded-md p-4 bg-purple-800 cursor-pointer hover:bg-purple-900'
               type='submit'
             />
+          </div>
+          <div className=' flex justify-between'>
+            <Link className=' text-4xl text-blue-400 underline' to='/'>
+              Home
+            </Link>
+            <span className='flex'>
+              <p className=' text-3xl'>Not registered yet?</p>
+              <Link
+                className=' ml-4 text-4xl text-blue-400 underline'
+                to='/register'>
+                Register
+              </Link>
+            </span>
+            <span className=' ml-auto'>
+              <p className=' text-4xl '>forgot your password:</p>
+              <Link
+                className=' text-3xl underline text-blue-300'
+                to='/forgot-password'>
+                Reset
+              </Link>
+            </span>
           </div>
         </form>
       </div>
